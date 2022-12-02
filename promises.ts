@@ -29,10 +29,18 @@ const createPromise = ({
 
     if (action === PromiseStatusENUM.RESOLVE) {
       setTimeout(() => resolve(`Promise ${name} was resolved`), time);
-    } else {
+    } else if (action === PromiseStatusENUM.REJECT) {
       setTimeout(() => reject(`Promise ${name} was rejected`), time);
     }
   });
+
+createPromise({
+  action: PromiseStatusENUM.REJECT,
+  name: "Reject",
+  time: 2000,
+})
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error));
 
 async function resolveMultiplePromises(): Promise<void> | never {
   const firstPromise = createPromise({
